@@ -43,7 +43,6 @@ const FileUploadField = ({
   return (
     <div className="space-y-2">
       <FileUpload
-        compact
         label={label}
         fieldLabel={fieldLabel}
         onChange={handleFileChange}

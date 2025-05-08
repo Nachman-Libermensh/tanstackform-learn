@@ -154,9 +154,10 @@ const TestForm = () => {
                 children={(field) => (
                   <field.FileUploadField
                     multiple={true}
+                    allowImagePreview={true}
                     label="תמונת פרופיל"
                     fieldLabel="גרור לכאן תמונה או לחץ לבחירה"
-                    accept="img"
+                    accept="csv"
                   />
                 )}
               />
