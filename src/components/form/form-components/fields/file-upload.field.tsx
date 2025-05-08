@@ -1,50 +1,57 @@
-// import { useFieldContext } from "../../form-context";
-// import FileUpload from "@/app/shared/file-upload";
-// import { ComponentProps } from "react";
+"use client";
 
-// type FileUploadFieldProps = {
-//   label?: string;
-//   fieldLabel?: string;
-//   btnLabel?: string;
-//   accept?: "img" | "pdf" | "csv" | "imgAndPdf" | "all";
-//   description?: string;
-// } & Omit<
-//   ComponentProps<typeof FileUpload>,
-//   "label" | "fieldLabel" | "btnLabel" | "accept" | "onChange"
-// >;
+import FileUpload from "@/components/file-upload";
+import { useFieldContext } from "../../form-context";
+import { ComponentProps } from "react";
+import { type FieldError } from "../../types";
 
-// const FileUploadField = ({
-//   label,
-//   fieldLabel,
-//   btnLabel,
-//   accept = "all",
-//   description,
-//   ...props
-// }: FileUploadFieldProps) => {
-//   const field = useFieldContext<File | null>();
+/**
+ * שדה העלאת קבצים לטפסים
+ * משתמש ב-useFieldContext להתחברות למערכת הטפסים
+ */
+type FileUploadFieldProps = {
+  /** כותרת השדה */
+  label?: string;
+  /** תווית עבור אזור ההעלאה */
+  fieldLabel?: string;
+} & Omit<
+  ComponentProps<typeof FileUpload>,
+  "label" | "fieldLabel" | "onChange" | "error" | "value"
+>;
 
-//   return (
-//     <div className="space-y-2">
-//       <FileUpload
-//         label={label}
-//         fieldLabel={fieldLabel}
-//         btnLabel={btnLabel}
-//         accept={accept}
-//         onChange={(file: File) => {
-//           field.handleChange(file);
-//         }}
-//         error={
-//           field.state.meta.isTouched && field.state.meta.errors.length > 0
-//             ? field.state.meta.errors.map((error) => error.message).join(", ")
-//             : undefined
-//         }
-//         {...props}
-//       />
-//       {description && (
-//         <p className="text-sm text-muted-foreground">{description}</p>
-//       )}
-//     </div>
-//   );
-// };
+const FileUploadField = ({
+  label,
+  fieldLabel,
+  ...props
+}: FileUploadFieldProps) => {
+  // התחברות להקשר השדה
+  const field = useFieldContext<File | File[] | null>();
 
-// export default FileUploadField;
+  // טיפול בשינוי קבצים
+  const handleFileChange = (fileOrFiles: File | File[] | null) => {
+    field.handleChange(fileOrFiles);
+  };
+
+  // ניהול הודעות שגיאה
+  const errorMessage =
+    field.state.meta.isTouched && field.state.meta.errors.length > 0
+      ? field.state.meta.errors
+          .map((error: FieldError) => error.message)
+          .join(", ")
+      : undefined;
+
+  return (
+    <div className="space-y-2">
+      <FileUpload
+        compact
+        label={label}
+        fieldLabel={fieldLabel}
+        onChange={handleFileChange}
+        error={errorMessage}
+        {...props}
+      />
+    </div>
+  );
+};
+
+export default FileUploadField;

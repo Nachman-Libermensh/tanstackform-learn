@@ -9,6 +9,7 @@ type IVariation = {
 export type IDefaultValues = {
   barkode?: string;
   name?: string;
+  file?: File | null;
   price?: number | undefined | null;
   variations?: IVariation[];
   variation?: {
@@ -21,6 +22,7 @@ export type IDefaultValues = {
 };
 export const blankVariation: IVariation = {
   name: "",
+
   price: undefined,
   stock: undefined,
   sku: "",
@@ -29,6 +31,7 @@ export const blankVariation: IVariation = {
 export const defaultValues: IDefaultValues = {
   barkode: "",
   name: "",
+  file: null,
   price: undefined,
   variations: [blankVariation],
   variation: {

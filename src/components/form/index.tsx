@@ -42,9 +42,9 @@ const PasswordInputField = lazy(
 // const DatePickerField = lazy(
 //   () => import("./form-components/fields/date-picker.field")
 // );
-// const FileUploadField = lazy(
-//   () => import("./form-components/fields/file-upload.field")
-// );
+const FileUploadField = lazy(
+  () => import("./form-components/fields/file-upload.field")
+);
 
 /**
  * שדות בחירה
@@ -98,7 +98,7 @@ export const { useAppForm, withForm } = createFormHook({
     AdvancedCheckboxField,
     PasswordInputField,
     // DatePickerField,
-    // FileUploadField,
+    FileUploadField,
 
     // שדות בחירה
     SelectField,

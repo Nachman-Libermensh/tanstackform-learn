@@ -50,23 +50,83 @@ const TestForm = () => {
             name="barkode"
             children={(field) => <field.TextField label="Barkode" />}
           />
+          <form.AppField
+            name="price"
+            children={(field) => (
+              <field.TextField type="number" label="Price" />
+            )}
+          />
           <form.Field name="variations" mode="array">
             {(field) => {
               return (
                 <div className="space-y-4">
                   {(field.state.value || []).map((_, i) => {
                     return (
-                      <form.AppField key={i} name={`variations[${i}].name`}>
-                        {(subField) => {
-                          return (
-                            <subField.TextField
-                              key={i}
-                              label={`Test ${i + 1}`}
-                              placeholder="Test"
-                            />
-                          );
-                        }}
-                      </form.AppField>
+                      <div
+                        key={`variation-${i}`}
+                        className="p-4 border rounded-lg mb-4"
+                      >
+                        <Text className="font-medium mb-3">
+                          וריאציה {i + 1}
+                        </Text>
+                        <Grid columns={"2"} gap={"4"}>
+                          <form.AppField name={`variations[${i}].name`}>
+                            {(subField) => (
+                              <subField.TextField
+                                label="שם וריאציה"
+                                placeholder="הזן שם וריאציה"
+                              />
+                            )}
+                          </form.AppField>
+
+                          <form.AppField name={`variations[${i}].price`}>
+                            {(subField) => (
+                              <subField.TextField
+                                label="מחיר"
+                                placeholder="הזן מחיר"
+                                type="number"
+                              />
+                            )}
+                          </form.AppField>
+
+                          <form.AppField name={`variations[${i}].stock`}>
+                            {(subField) => (
+                              <subField.TextField
+                                label="מלאי"
+                                placeholder="הזן כמות במלאי"
+                                type="number"
+                              />
+                            )}
+                          </form.AppField>
+
+                          <form.AppField name={`variations[${i}].sku`}>
+                            {(subField) => (
+                              <subField.TextField
+                                label="מקט"
+                                placeholder="הזן מקט"
+                              />
+                            )}
+                          </form.AppField>
+
+                          <form.AppField name={`variations[${i}].barcode`}>
+                            {(subField) => (
+                              <subField.TextField
+                                label="ברקוד"
+                                placeholder="הזן ברקוד"
+                              />
+                            )}
+                          </form.AppField>
+
+                          <Button
+                            variant="flat"
+                            color="danger"
+                            type="button"
+                            onClick={() => field.removeValue(i)}
+                          >
+                            הסר וריאציה
+                          </Button>
+                        </Grid>
+                      </div>
                     );
                   })}
                   <Button
@@ -88,6 +148,17 @@ const TestForm = () => {
               <form.AppField
                 name="name"
                 children={(field) => <field.TextField label="Name" />}
+              />
+              <form.AppField
+                name="file"
+                children={(field) => (
+                  <field.FileUploadField
+                    multiple={true}
+                    label="תמונת פרופיל"
+                    fieldLabel="גרור לכאן תמונה או לחץ לבחירה"
+                    accept="img"
+                  />
+                )}
               />
               <form.Subscribe
                 selector={(state) => state.values.name}
