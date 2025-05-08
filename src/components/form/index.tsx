@@ -9,6 +9,9 @@ const FormLayout = lazy(() => import("./form-components/sections/form-layout"));
 const FormSection = lazy(
   () => import("./form-components/sections/form-section")
 );
+const FormActions = lazy(
+  () => import("./form-components/sections/form-actions")
+);
 const SubmitButton = lazy(
   () => import("./form-components/buttons/submit.button")
 );
@@ -79,6 +82,7 @@ export const { useAppForm, withForm } = createFormHook({
   // קומפוננטות מבנה
   formComponents: {
     FormLayout,
+    FormActions,
     FormSection,
     SubmitButton,
     ResetButton,

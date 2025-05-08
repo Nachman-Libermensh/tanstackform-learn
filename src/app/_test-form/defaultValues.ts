@@ -8,6 +8,8 @@ type IVariation = {
 
 export type IDefaultValues = {
   barkode?: string;
+  name?: string;
+  price?: number | undefined | null;
   variations?: IVariation[];
   variation?: {
     name?: string;
@@ -26,6 +28,8 @@ export const blankVariation: IVariation = {
 };
 export const defaultValues: IDefaultValues = {
   barkode: "",
+  name: "",
+  price: undefined,
   variations: [blankVariation],
   variation: {
     name: "",

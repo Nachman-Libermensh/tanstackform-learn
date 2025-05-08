@@ -3,7 +3,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { Button, Loader, Text } from "rizzui";
+import { Button, Grid, Loader, Text } from "rizzui";
 
 import { useAppForm } from "@/components/form";
 import { ProductVariationForm } from "./ProductVariationForm";
@@ -45,46 +45,69 @@ const TestForm = () => {
           console.log("submit");
         }}
       >
-        <form.AppField
-          name="barkode"
-          children={(field) => <field.TextField label="Barkode" />}
-        />
-        <form.Field name="variations" mode="array">
-          {(field) => {
-            return (
-              <div>
-                {(field.state.value || []).map((_, i) => {
-                  return (
-                    <form.AppField key={i} name={`variations[${i}].name`}>
-                      {(subField) => {
-                        return (
-                          <subField.TextField
-                            key={i}
-                            label={`Test ${i + 1}`}
-                            placeholder="Test"
-                          />
-                        );
-                      }}
-                    </form.AppField>
-                  );
-                })}
-                <Button
-                  onClick={() => field.pushValue(blankVariation)}
-                  type="button"
-                >
-                  הוסף וריאציה
-                </Button>
-              </div>
-            );
-          }}
-        </form.Field>
-        <ProductVariationForm form={form} title={"וריאציות"} />
+        <form.FormLayout dir="rtl" bordered spacing={"8"}>
+          <form.AppField
+            name="barkode"
+            children={(field) => <field.TextField label="Barkode" />}
+          />
+          <form.Field name="variations" mode="array">
+            {(field) => {
+              return (
+                <div className="space-y-4">
+                  {(field.state.value || []).map((_, i) => {
+                    return (
+                      <form.AppField key={i} name={`variations[${i}].name`}>
+                        {(subField) => {
+                          return (
+                            <subField.TextField
+                              key={i}
+                              label={`Test ${i + 1}`}
+                              placeholder="Test"
+                            />
+                          );
+                        }}
+                      </form.AppField>
+                    );
+                  })}
+                  <Button
+                    onClick={() => field.pushValue(blankVariation)}
+                    type="button"
+                  >
+                    הוסף וריאציה
+                  </Button>
+                </div>
+              );
+            }}
+          </form.Field>
+          <form.FormSection
+            collapsible
+            title="פרטי מוצר"
+            description="פרטי מוצר"
+          >
+            <Grid columns="2" gap="4">
+              <form.AppField
+                name="name"
+                children={(field) => <field.TextField label="Name" />}
+              />
+              <form.Subscribe
+                selector={(state) => state.values.name}
+                children={(name) =>
+                  name === "test" && (
+                    <ProductVariationForm form={form} title="פרטי צמיג" />
+                  )
+                }
+              />
+            </Grid>
+          </form.FormSection>
 
-        <form.AppForm children={<form.ResetButton />} />
+          <form.FormActions align="start" divider>
+            <form.AppForm children={<form.ResetButton />} />
 
-        <form.AppForm children={<form.DebugButton />} />
+            <form.AppForm children={<form.DebugButton />} />
 
-        <form.AppForm children={<form.SubmitButton />} />
+            <form.AppForm children={<form.SubmitButton />} />
+          </form.FormActions>
+        </form.FormLayout>
       </form>
     </Suspense>
   );

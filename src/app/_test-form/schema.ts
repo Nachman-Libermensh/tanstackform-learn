@@ -8,6 +8,8 @@ const variationSchema = z.object({
 });
 export const testSchema = z.object({
   barkode: z.string().min(1, "Barkode is required"),
+  name: z.string().min(1, "Name is required"),
+  price: z.coerce.number().min(0, "Price is required"),
   variations: z.array(variationSchema),
   variation: z
     .object({
