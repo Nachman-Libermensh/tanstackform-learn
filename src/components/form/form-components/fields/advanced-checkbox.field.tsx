@@ -1,6 +1,6 @@
-import { useFieldContext } from "..";
 import { AdvancedCheckbox, Text } from "rizzui";
 import { ComponentProps, ReactNode } from "react";
+import { useFieldContext } from "../../form-context";
 
 type AdvancedCheckboxFieldProps = {
   value: string;

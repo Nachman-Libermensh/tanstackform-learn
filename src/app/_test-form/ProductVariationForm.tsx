@@ -34,10 +34,6 @@ export const ProductVariationForm = withForm({
           name="variation.barcode"
           children={(field) => <field.TextField label="Barcode" />}
         />
-
-        <form.AppForm>
-          <form.SubmitButton lable="Submit" />
-        </form.AppForm>
       </div>
     );
   },

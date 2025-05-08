@@ -1,5 +1,5 @@
 import { Textarea } from "rizzui";
-import { useFieldContext } from "..";
+import { useFieldContext } from "../../form-context";
 import { ComponentProps } from "react";
 
 type TextAreaFieldProps = {

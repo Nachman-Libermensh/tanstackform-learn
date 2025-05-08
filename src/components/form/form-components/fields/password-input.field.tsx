@@ -1,4 +1,4 @@
-import { useFieldContext } from "..";
+import { useFieldContext } from "../../form-context";
 import { Password } from "rizzui";
 import { ComponentProps } from "react";
 
@@ -96,8 +96,8 @@ function PasswordStrengthIndicator({ password }: { password: string }) {
             strength < 2
               ? "text-red-500"
               : strength < 4
-                ? "text-amber-500"
-                : "text-green-500"
+              ? "text-amber-500"
+              : "text-green-500"
           }`}
         >
           {getLabel()}

@@ -1,76 +1,88 @@
-import { createFormHook, createFormHookContexts } from "@tanstack/react-form";
+import { createFormHook } from "@tanstack/react-form";
 import { lazy } from "react";
-
-// יצירת Context עבור השדות והטופס
-export const { fieldContext, formContext, useFieldContext, useFormContext } =
-  createFormHookContexts();
+import { fieldContext, formContext } from "./form-context";
 
 /**
  * קומפוננטות מבנה טופס
  */
-const FormLayout = lazy(() => import("./form-components/form-layout"));
-const FormSection = lazy(() => import("./form-components/FormSection"));
-const SubmitButton = lazy(() => import("./form-components/submit-button"));
-
+const FormLayout = lazy(() => import("./form-components/sections/form-layout"));
+const FormSection = lazy(
+  () => import("./form-components/sections/form-section")
+);
+const SubmitButton = lazy(
+  () => import("./form-components/buttons/submit.button")
+);
+const ResetButton = lazy(
+  () => import("./form-components/buttons/reset.button")
+);
+const DebugButton = lazy(
+  () => import("./form-components/buttons/debug.button")
+);
 /**
  * שדות קלט בסיסיים
  */
-const TextField = lazy(() => import("./form-components/text.field"));
-const TextAreaField = lazy(() => import("./form-components/text-area.field"));
-const CheckboxField = lazy(() => import("./form-components/checkbox.field"));
+const TextField = lazy(() => import("./form-components/fields/text.field"));
+const TextAreaField = lazy(
+  () => import("./form-components/fields/text-area.field")
+);
+const CheckboxField = lazy(
+  () => import("./form-components/fields/checkbox.field")
+);
 
 const AdvancedCheckboxField = lazy(
-  () => import("./form-components/advanced-checkbox.field")
+  () => import("./form-components/fields/advanced-checkbox.field")
 );
 
 const PasswordInputField = lazy(
-  () => import("./form-components/password-input.field")
+  () => import("./form-components/fields/password-input.field")
 );
 // const DatePickerField = lazy(
-//   () => import("./form-components/date-picker.field")
+//   () => import("./form-components/fields/date-picker.field")
 // );
 // const FileUploadField = lazy(
-//   () => import("./form-components/file-upload.field")
+//   () => import("./form-components/fields/file-upload.field")
 // );
 
 /**
  * שדות בחירה
  */
-const SelectField = lazy(() => import("./form-components/select.field"));
+const SelectField = lazy(() => import("./form-components/fields/select.field"));
 // const SelectLookupField = lazy(
-//   () => import("./form-components/select-lookup.field")
+//   () => import("./form-components/fields/select-lookup.field")
 // );
 // const SelectMultiLookupField = lazy(
-//   () => import("./form-components/select-multi-lookup.field")
+//   () => import("./form-components/fields/select-multi-lookup.field")
 // );
 // const SelectUserField = lazy(
-//   () => import("./form-components/select-user.field")
+//   () => import("./form-components/fields/select-user.field")
 // );
 
 /**
  * שדות רדיו
  */
 const RadioGroupField = lazy(
-  () => import("./form-components/radio-group.field")
+  () => import("./form-components/fields/radio-group.field")
 );
 const AdvancedRadioGroupField = lazy(
-  () => import("./form-components/advanced-radio-group.field")
+  () => import("./form-components/fields/advanced-radio-group.field")
 );
 
-const SwitchField = lazy(() => import("./form-components/switch.field"));
+const SwitchField = lazy(() => import("./form-components/fields/switch.field"));
 
 /**
  * יצירת והגדרת ה-hook של הטופס
  */
 export const { useAppForm, withForm } = createFormHook({
   fieldContext,
-  formContext,
+  formContext: formContext,
 
   // קומפוננטות מבנה
   formComponents: {
     FormLayout,
     FormSection,
     SubmitButton,
+    ResetButton,
+    DebugButton,
   },
 
   // קומפוננטות שדות

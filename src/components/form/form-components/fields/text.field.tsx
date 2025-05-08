@@ -1,6 +1,7 @@
 import { Input } from "rizzui";
-import { useFieldContext } from "..";
+import { useFieldContext } from "../../form-context";
 import { ComponentProps } from "react";
+import { type FieldError } from "../../types";
 
 /**
  * שדה קלט טקסט/מספר לטפסים
@@ -41,7 +42,9 @@ const TextField = ({
   // ניהול הודעות שגיאה
   const errorMessage =
     field.state.meta.isTouched && field.state.meta.errors.length > 0
-      ? field.state.meta.errors.map((error) => error.message).join(", ")
+      ? field.state.meta.errors
+          .map((error: FieldError) => error.message)
+          .join(", ")
       : undefined;
 
   // טיפול בערך - ערך ריק מוצג כמחרוזת ריקה

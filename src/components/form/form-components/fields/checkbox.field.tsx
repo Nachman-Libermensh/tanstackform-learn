@@ -1,8 +1,8 @@
-import { useFieldContext } from "..";
+import { useFieldContext } from "../../form-context";
 import { Checkbox } from "rizzui";
 
 import { type ComponentProps } from "react";
-import { type FieldError } from "../types";
+import { FieldError } from "../../types";
 
 type CheckboxFieldProps = {
   label: string;

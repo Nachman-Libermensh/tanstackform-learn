@@ -1,14 +1,14 @@
 import { useStore } from "@tanstack/react-form";
-import { useFormContext } from "..";
+
 import { Button, cn } from "rizzui";
-// import { cn } from "@/lib/utils";
+import { useFormContext } from "../../form-context";
 
 type SubmitButtonProps = {
   lable?: string;
   className?: string;
-};
+} & React.ComponentProps<typeof Button>;
 
-const SubmitButton = ({ className = "", lable }: SubmitButtonProps) => {
+const SubmitButton = ({ className, lable, ...props }: SubmitButtonProps) => {
   const form = useFormContext();
 
   const [isSubmitting, canSubmit] = useStore(form.store, (state) => [
@@ -22,8 +22,9 @@ const SubmitButton = ({ className = "", lable }: SubmitButtonProps) => {
       type="submit"
       className={cn(className)}
       disabled={isSubmitting || !canSubmit}
+      {...props}
     >
-      {lable}
+      {lable ?? "Submit"}
     </Button>
   );
 };

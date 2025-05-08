@@ -1,7 +1,7 @@
-import { useFieldContext } from "..";
+import { useFieldContext } from "../../form-context";
 import { AdvancedRadio, RadioGroup, Text } from "rizzui";
 import { ComponentProps, ReactNode } from "react";
-import { CheckCircleIcon } from "@heroicons/react/20/solid";
+import { MdCheckCircle } from "react-icons/md";
 
 // הגדרת סוג אפשרות מתקדמת
 type AdvancedRadioOption = {
@@ -44,10 +44,10 @@ const AdvancedRadioGroupField = ({
           columns === 1
             ? ""
             : columns === 2
-              ? "sm:grid-cols-2"
-              : columns === 3
-                ? "sm:grid-cols-3"
-                : "sm:grid-cols-4"
+            ? "sm:grid-cols-2"
+            : columns === 3
+            ? "sm:grid-cols-3"
+            : "sm:grid-cols-4"
         } gap-4`}
         {...props}
       >
@@ -63,7 +63,7 @@ const AdvancedRadioGroupField = ({
             <span className="flex justify-between">
               <Text as="b">{option.title}</Text>
               {showIcons && (
-                <CheckCircleIcon className="icon hidden h-5 w-5 text-primary" />
+                <MdCheckCircle className="icon hidden h-5 w-5 text-primary" />
               )}
             </span>
             {option.description && <Text>{option.description}</Text>}

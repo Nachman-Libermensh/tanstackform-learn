@@ -7,7 +7,7 @@ import { Button, Loader, Text } from "rizzui";
 
 import { useAppForm } from "@/components/form";
 import { ProductVariationForm } from "./ProductVariationForm";
-import { defaultValues } from "./defaultValues";
+import { blankVariation, defaultValues } from "./defaultValues";
 import toast from "react-hot-toast";
 import { testSchema } from "./schema";
 const handleSubmit = async (data: any) => {
@@ -49,13 +49,13 @@ const TestForm = () => {
           name="barkode"
           children={(field) => <field.TextField label="Barkode" />}
         />
-        <form.Field name="tests" mode="array">
+        <form.Field name="variations" mode="array">
           {(field) => {
             return (
               <div>
                 {(field.state.value || []).map((_, i) => {
                   return (
-                    <form.AppField key={i} name={`tests[${i}]`}>
+                    <form.AppField key={i} name={`variations[${i}].name`}>
                       {(subField) => {
                         return (
                           <subField.TextField
@@ -68,14 +68,23 @@ const TestForm = () => {
                     </form.AppField>
                   );
                 })}
-                <Button onClick={() => field.pushValue("")} type="button">
+                <Button
+                  onClick={() => field.pushValue(blankVariation)}
+                  type="button"
+                >
                   הוסף וריאציה
                 </Button>
               </div>
             );
           }}
         </form.Field>
-        <ProductVariationForm form={form} title={"Testing"} />
+        <ProductVariationForm form={form} title={"וריאציות"} />
+
+        <form.AppForm children={<form.ResetButton />} />
+
+        <form.AppForm children={<form.DebugButton />} />
+
+        <form.AppForm children={<form.SubmitButton />} />
       </form>
     </Suspense>
   );

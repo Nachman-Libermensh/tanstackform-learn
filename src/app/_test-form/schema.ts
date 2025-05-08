@@ -1,8 +1,14 @@
 import { z } from "zod";
-
+const variationSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  price: z.coerce.number().min(0, "Price is required"),
+  stock: z.number().min(0, "Stock is required"),
+  sku: z.string().min(1, "SKU is required"),
+  barcode: z.string().min(1, "Barcode is required"),
+});
 export const testSchema = z.object({
   barkode: z.string().min(1, "Barkode is required"),
-  tests: z.array(z.string()).optional(),
+  variations: z.array(variationSchema),
   variation: z
     .object({
       name: z.string().min(1, "Name is required").optional(),
